@@ -7,7 +7,7 @@
 }
 
 :root {
-  --dark-color: #000000;
+  --dark-color: #f1b4d2;
 }
 
 body {
@@ -1418,3 +1418,37 @@ body {
       opacity: 0;
     }
   }
+
+  .navbar {
+    background-color: rgba(255, 182, 193, 0.8); /* Light pink with transparency */
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    text-align: center;
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navbar ul li a:hover {
+    color: #ff69b4; /* Hot pink */
+}
