@@ -2,12 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Happy Valentine's Day</title>
-  <!-- Re-use the same CSS for background and hearts -->
+  <title>Happy Valentine's Day - Realistic Tulips</title>
+  <!-- Re-use the same CSS (which includes the hearts background) -->
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* The container for Two.js. It will fill the window and sit above the hearts. */
+    #tulipContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1; /* above the hearts container (z-index: 0) */
+      width: 100%;
+      height: 100%;
+    }
+  </style>
 </head>
 <body>
-  <!-- Hearts Background Container (same as in index.html) -->
+  <!-- Hearts Background Container (as defined in your shared style.css) -->
   <div class="hearts">
     <div class="heart" style="--i:0; left: 10%; --offset: 20px;"></div>
     <div class="heart" style="--i:1; left: 30%; --offset: -30px;"></div>
@@ -26,84 +37,124 @@
     <div class="heart" style="--i:14; left: 5%; --offset: 15px;"></div>
   </div>
 
-  <!-- p5.js will create a canvas that covers the window -->
-  
-  <!-- Include the p5.js library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-  <script>
-    // We’ll create a few tulip objects that store their properties.
-    let tulips = [];
-    let canvas;
-    
-    function setup() {
-      // Create a full-window canvas and set it to be positioned absolutely
-      canvas = createCanvas(windowWidth, windowHeight);
-      canvas.style('position', 'absolute');
-      canvas.style('top', '0');
-      canvas.style('left', '0');
-      canvas.style('z-index', '1'); // Place it above the hearts (which have z-index 0)
+  <!-- Container for the Two.js drawing -->
+  <div id="tulipContainer"></div>
 
-      // Create a few tulips (e.g., 5) with random positions, stem heights, and colors.
-      let colors = ['#FF6B6B', '#FF8C94', '#FFB6C1', '#FF69B4', '#FF1493'];
-      let numTulips = 5;
-      for (let i = 0; i < numTulips; i++) {
-        let x = random(50, width - 50);
-        let stemHeight = random(height * 0.3, height * 0.5);
-        let col = random(colors);
-        // Pre-calculate control points for a smooth Bézier stem.
-        let cp1x = x + random(-20, 20);
-        let cp1y = height - stemHeight * 0.3;
-        let cp2x = x + random(-20, 20);
-        let cp2y = height - stemHeight * 0.7;
-        tulips.push({
-          x: x,
-          stemHeight: stemHeight,
-          col: col,
-          cp1x: cp1x,
-          cp1y: cp1y,
-          cp2x: cp2x,
-          cp2y: cp2y
-        });
-      }
+  <!-- Include Two.js from a CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.7.0/two.min.js"></script>
+  <script>
+    // Initialize Two.js in the container
+    var container = document.getElementById('tulipContainer');
+    var params = { width: window.innerWidth, height: window.innerHeight };
+    var two = new Two(params).appendTo(container);
+
+    /**
+     * Creates a realistic tulip using Two.js.
+     * @param {number} x - The horizontal position for the tulip’s base.
+     * @param {number} baseY - The vertical "floor" position (typically two.height).
+     * @param {number} stemHeight - How tall the stem is.
+     * @param {string} petalColor - The color for the tulip bloom.
+     * @returns {Two.Group} A group containing the tulip parts.
+     */
+    function createRealisticTulip(x, baseY, stemHeight, petalColor) {
+      var group = two.makeGroup();
+
+      // === Draw the Stem ===
+      // Create a smooth quadratic curve for the stem.
+      var stem = new Two.Path([
+        new Two.Anchor(x, baseY),
+        new Two.Anchor(x - 10, baseY - stemHeight * 0.5),
+        new Two.Anchor(x, baseY - stemHeight)
+      ], false);
+      stem.curved = true;
+      stem.stroke = '#228B22';
+      stem.linewidth = 4;
+      group.add(stem);
+
+      // === Draw a Leaf (left side) ===
+      var leaf = new Two.Path([
+        new Two.Anchor(x, baseY - stemHeight * 0.6),
+        new Two.Anchor(x - 40, baseY - stemHeight * 0.7),
+        new Two.Anchor(x, baseY - stemHeight * 0.8)
+      ], false);
+      leaf.curved = true;
+      leaf.fill = '#32CD32';
+      leaf.noStroke();
+      group.add(leaf);
+
+      // === Draw the Tulip Bloom (Petals) ===
+      // Parameters for petals:
+      var petalWidth = 40;
+      var petalHeight = 60;
+      var centerX = x;
+      var centerY = baseY - stemHeight; // Top of the stem
+
+      // Left Petal
+      var leftPetal = new Two.Path([
+        new Two.Anchor(centerX, centerY),
+        new Two.Anchor(centerX - petalWidth, centerY - petalHeight * 0.5),
+        new Two.Anchor(centerX, centerY - petalHeight)
+      ], false);
+      leftPetal.curved = true;
+      leftPetal.fill = petalColor;
+      leftPetal.stroke = '#000';
+      leftPetal.linewidth = 1;
+      group.add(leftPetal);
+
+      // Right Petal
+      var rightPetal = new Two.Path([
+        new Two.Anchor(centerX, centerY),
+        new Two.Anchor(centerX + petalWidth, centerY - petalHeight * 0.5),
+        new Two.Anchor(centerX, centerY - petalHeight)
+      ], false);
+      rightPetal.curved = true;
+      rightPetal.fill = petalColor;
+      rightPetal.stroke = '#000';
+      rightPetal.linewidth = 1;
+      group.add(rightPetal);
+
+      // Middle Petal (overlapping for depth)
+      var middlePetal = new Two.Path([
+        new Two.Anchor(centerX, centerY),
+        new Two.Anchor(centerX, centerY - petalHeight * 0.6),
+        new Two.Anchor(centerX, centerY - petalHeight)
+      ], false);
+      middlePetal.curved = true;
+      middlePetal.fill = petalColor;
+      middlePetal.stroke = '#000';
+      middlePetal.linewidth = 1;
+      group.add(middlePetal);
+
+      // Center Detail: a small yellow circle (stamen)
+      var stamen = two.makeCircle(centerX, centerY - petalHeight * 0.7, 3);
+      stamen.fill = '#FFD700';
+      stamen.noStroke();
+      group.add(stamen);
+
+      return group;
     }
-    
-    function draw() {
-      // Clear the canvas each frame (without a background so the hearts show through)
-      clear();
-      
-      // Draw each tulip from the bottom of the screen upward.
-      for (let i = 0; i < tulips.length; i++) {
-        drawTulip(tulips[i]);
-      }
+
+    // === Create Multiple Realistic Tulips ===
+    var tulipCount = 6;
+    var colors = ['#FF6B6B', '#FF8C94', '#FFB6C1', '#FF69B4', '#FF1493', '#E75480', '#C71585'];
+    for (var i = 0; i < tulipCount; i++) {
+      var x = Math.random() * two.width;
+      var baseY = two.height; // "Floor" of the page
+      var stemHeight = 150 + Math.random() * 100;
+      var petalColor = colors[Math.floor(Math.random() * colors.length)];
+      createRealisticTulip(x, baseY, stemHeight, petalColor);
     }
-    
-    // Draw a single tulip given its properties
-    function drawTulip(t) {
-      // Draw the stem with a gentle curved Bézier line
-      stroke(34, 139, 34); // a deep green
-      strokeWeight(4);
-      noFill();
-      bezier(t.x, height, t.cp1x, t.cp1y, t.cp2x, t.cp2y, t.x, height - t.stemHeight);
-      
-      // Draw the tulip flower at the top of the stem.
-      noStroke();
-      fill(t.col);
-      push();
-      translate(t.x, height - t.stemHeight);
-      // Draw a tulip-like shape using two Bézier curves.
-      beginShape();
-        vertex(0, 0);
-        // Left side of the tulip
-        bezierVertex(-15, -20, -20, -40, 0, -50);
-        // Right side of the tulip
-        bezierVertex(20, -40, 15, -20, 0, 0);
-      endShape(CLOSE);
-      pop();
-    }
-    
-    function windowResized() {
-      resizeCanvas(windowWidth, windowHeight);
-    }
+
+    // Render the drawing
+    two.update();
+
+    // Adjust Two.js on window resize
+    window.addEventListener('resize', function() {
+      two.width = window.innerWidth;
+      two.height = window.innerHeight;
+      two.renderer.resize(window.innerWidth, window.innerHeight);
+      two.update();
+    });
   </script>
 </body>
 </html>
