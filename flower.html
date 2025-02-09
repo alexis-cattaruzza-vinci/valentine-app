@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Valentine's Day</title>
+  <style>
+    body { 
+      margin: 0; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      height: 100vh; 
+      background-color: #f0e6f6; 
+    }
+  </style>
+</head>
+<body>
+  <!-- Include p5.js from a CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script>
+    let angle = 0;
+    function setup() {
+      createCanvas(windowWidth, windowHeight);
+      angleMode(DEGREES);
+    }
+
+    function draw() {
+      background(240, 230, 246);
+      translate(width / 2, height / 2);
+      
+      // Draw the center of the flower.
+      fill(255, 215, 0);
+      noStroke();
+      ellipse(0, 0, 50, 50);
+      
+      // Draw petals.
+      let numPetals = 10;
+      for (let i = 0; i < numPetals; i++) {
+        push();
+        rotate(angle + i * (360 / numPetals));
+        fill(255, 105, 180, 200);
+        ellipse(0, 80, 60, 100);
+        pop();
+      }
+      angle += 0.5; // Adjust speed if desired.
+    }
+
+    function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
+    }
+  </script>
+</body>
+</html>
