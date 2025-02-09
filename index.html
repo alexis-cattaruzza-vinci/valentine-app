@@ -3,62 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <title>Valentine's Day Surprise</title>
-  <style>
-    body { 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center; 
-      justify-content: center; 
-      height: 100vh; 
-      background-color: #ffe6e6; 
-      font-family: sans-serif;
-      margin: 0;
-    }
-    h1 { 
-      font-size: 2em; 
-      color: #d6336c; 
-      text-align: center;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 1em;
-      margin: 10px;
-      cursor: pointer;
-      border: none;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
-    #yes { 
-      background-color: #28a745; 
-      color: white; 
-    }
-    #no { 
-      background-color: #dc3545; 
-      color: white; 
-    }
-    #message {
-      color: #dc3545;
-      font-size: 1.2em;
-      margin-top: 20px;
-      display: none;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Will you be my Valentine?</h1>
-  <div>
-    <button id="yes">Yes</button>
-    <button id="no">No</button>
+  <!-- Animated Hearts Background -->
+  <div class="hearts">
+    <!-- 15 hearts with varying positions and offsets -->
+    <div class="heart" style="--i:0; left: 10%; --offset: 20px;"></div>
+    <div class="heart" style="--i:1; left: 30%; --offset: -30px;"></div>
+    <div class="heart" style="--i:2; left: 50%; --offset: 40px;"></div>
+    <div class="heart" style="--i:3; left: 70%; --offset: -20px;"></div>
+    <div class="heart" style="--i:4; left: 90%; --offset: 30px;"></div>
+    <div class="heart" style="--i:5; left: 20%; --offset: -40px;"></div>
+    <div class="heart" style="--i:6; left: 40%; --offset: 10px;"></div>
+    <div class="heart" style="--i:7; left: 60%; --offset: -10px;"></div>
+    <div class="heart" style="--i:8; left: 80%; --offset: 50px;"></div>
+    <div class="heart" style="--i:9; left: 15%; --offset: -50px;"></div>
+    <div class="heart" style="--i:10; left: 35%; --offset: 60px;"></div>
+    <div class="heart" style="--i:11; left: 55%; --offset: -60px;"></div>
+    <div class="heart" style="--i:12; left: 75%; --offset: 25px;"></div>
+    <div class="heart" style="--i:13; left: 85%; --offset: -25px;"></div>
+    <div class="heart" style="--i:14; left: 5%; --offset: 15px;"></div>
   </div>
-  <div id="message">Sorry, it's not possible to say no!</div>
-  
+
+  <!-- Main Content -->
+  <div class="content">
+    <h1>Will you be my Valentine?</h1>
+    <div class="button-container">
+      <button id="yes">Yes</button>
+      <button id="no">No</button>
+    </div>
+    <div id="message">Sorry, it's not possible to say no!</div>
+  </div>
+
   <script>
     // Redirect to the flower page if "Yes" is clicked.
     document.getElementById('yes').addEventListener('click', function() {
       window.location.href = "flower.html";
     });
 
-    // Show message and disable the "No" button if clicked.
+    // Display the message and hide the "No" button if "No" is clicked.
     document.getElementById('no').addEventListener('click', function() {
       document.getElementById('message').style.display = "block";
       this.style.display = "none";

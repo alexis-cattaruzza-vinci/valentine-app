@@ -3,48 +3,104 @@
 <head>
   <meta charset="UTF-8">
   <title>Happy Valentine's Day</title>
-  <style>
-    body { 
-      margin: 0; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      height: 100vh; 
-      background-color: #f0e6f6; 
-    }
-  </style>
+  <!-- Re-use the same CSS for background and hearts -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Include p5.js from a CDN -->
+  <!-- Hearts Background Container (same as in index.html) -->
+  <div class="hearts">
+    <div class="heart" style="--i:0; left: 10%; --offset: 20px;"></div>
+    <div class="heart" style="--i:1; left: 30%; --offset: -30px;"></div>
+    <div class="heart" style="--i:2; left: 50%; --offset: 40px;"></div>
+    <div class="heart" style="--i:3; left: 70%; --offset: -20px;"></div>
+    <div class="heart" style="--i:4; left: 90%; --offset: 30px;"></div>
+    <div class="heart" style="--i:5; left: 20%; --offset: -40px;"></div>
+    <div class="heart" style="--i:6; left: 40%; --offset: 10px;"></div>
+    <div class="heart" style="--i:7; left: 60%; --offset: -10px;"></div>
+    <div class="heart" style="--i:8; left: 80%; --offset: 50px;"></div>
+    <div class="heart" style="--i:9; left: 15%; --offset: -50px;"></div>
+    <div class="heart" style="--i:10; left: 35%; --offset: 60px;"></div>
+    <div class="heart" style="--i:11; left: 55%; --offset: -60px;"></div>
+    <div class="heart" style="--i:12; left: 75%; --offset: 25px;"></div>
+    <div class="heart" style="--i:13; left: 85%; --offset: -25px;"></div>
+    <div class="heart" style="--i:14; left: 5%; --offset: 15px;"></div>
+  </div>
+
+  <!-- p5.js will create a canvas that covers the window -->
+  
+  <!-- Include the p5.js library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
   <script>
-    let angle = 0;
+    // We’ll create a few tulip objects that store their properties.
+    let tulips = [];
+    let canvas;
+    
     function setup() {
-      createCanvas(windowWidth, windowHeight);
-      angleMode(DEGREES);
-    }
+      // Create a full-window canvas and set it to be positioned absolutely
+      canvas = createCanvas(windowWidth, windowHeight);
+      canvas.style('position', 'absolute');
+      canvas.style('top', '0');
+      canvas.style('left', '0');
+      canvas.style('z-index', '1'); // Place it above the hearts (which have z-index 0)
 
-    function draw() {
-      background(240, 230, 246);
-      translate(width / 2, height / 2);
-      
-      // Draw the center of the flower.
-      fill(255, 215, 0);
-      noStroke();
-      ellipse(0, 0, 50, 50);
-      
-      // Draw petals.
-      let numPetals = 10;
-      for (let i = 0; i < numPetals; i++) {
-        push();
-        rotate(angle + i * (360 / numPetals));
-        fill(255, 105, 180, 200);
-        ellipse(0, 80, 60, 100);
-        pop();
+      // Create a few tulips (e.g., 5) with random positions, stem heights, and colors.
+      let colors = ['#FF6B6B', '#FF8C94', '#FFB6C1', '#FF69B4', '#FF1493'];
+      let numTulips = 5;
+      for (let i = 0; i < numTulips; i++) {
+        let x = random(50, width - 50);
+        let stemHeight = random(height * 0.3, height * 0.5);
+        let col = random(colors);
+        // Pre-calculate control points for a smooth Bézier stem.
+        let cp1x = x + random(-20, 20);
+        let cp1y = height - stemHeight * 0.3;
+        let cp2x = x + random(-20, 20);
+        let cp2y = height - stemHeight * 0.7;
+        tulips.push({
+          x: x,
+          stemHeight: stemHeight,
+          col: col,
+          cp1x: cp1x,
+          cp1y: cp1y,
+          cp2x: cp2x,
+          cp2y: cp2y
+        });
       }
-      angle += 0.5; // Adjust speed if desired.
     }
-
+    
+    function draw() {
+      // Clear the canvas each frame (without a background so the hearts show through)
+      clear();
+      
+      // Draw each tulip from the bottom of the screen upward.
+      for (let i = 0; i < tulips.length; i++) {
+        drawTulip(tulips[i]);
+      }
+    }
+    
+    // Draw a single tulip given its properties
+    function drawTulip(t) {
+      // Draw the stem with a gentle curved Bézier line
+      stroke(34, 139, 34); // a deep green
+      strokeWeight(4);
+      noFill();
+      bezier(t.x, height, t.cp1x, t.cp1y, t.cp2x, t.cp2y, t.x, height - t.stemHeight);
+      
+      // Draw the tulip flower at the top of the stem.
+      noStroke();
+      fill(t.col);
+      push();
+      translate(t.x, height - t.stemHeight);
+      // Draw a tulip-like shape using two Bézier curves.
+      beginShape();
+        vertex(0, 0);
+        // Left side of the tulip
+        bezierVertex(-15, -20, -20, -40, 0, -50);
+        // Right side of the tulip
+        bezierVertex(20, -40, 15, -20, 0, 0);
+      endShape(CLOSE);
+      pop();
+    }
+    
     function windowResized() {
       resizeCanvas(windowWidth, windowHeight);
     }

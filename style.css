@@ -1,0 +1,133 @@
+/* Import Google Fonts for a romantic look */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+/* Global Styles */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffe6f2; /* Light pale pink background */
+  font-family: Arial, sans-serif;
+  overflow: hidden; /* Hide any scrollbars from animated elements */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Hearts Background Container */
+.hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none; /* Allow clicks to pass through */
+}
+
+/* Individual Heart Styling */
+.heart {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: #ff69b4; /* Pretty pink color */
+  transform: rotate(45deg);
+  animation: float 10s linear infinite;
+  opacity: 0.8;
+  bottom: -40px;
+  animation-delay: calc(var(--i) * 0.3s);
+  /* The left position is set inline in the HTML */
+}
+
+/* Create the heart shape with pseudo-elements */
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: #ff69b4;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -15px;
+  left: 0;
+}
+
+.heart::after {
+  left: 15px;
+  top: 0;
+}
+
+/* Animation for hearts with a custom horizontal offset */
+@keyframes float {
+  0% {
+    transform: translate(0, 0) rotate(45deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(var(--offset), -120vh) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* Main Content Styling */
+.content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Title Styling with a romantic font */
+h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3em;
+  color: #d6336c;
+  margin: 0.5em 0;
+}
+
+/* Button Container */
+.button-container {
+  margin: 1em 0;
+}
+
+/* Button Styling */
+button {
+  padding: 15px 30px;
+  font-size: 1.2em;
+  margin: 0 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 20px; /* Larger, softer corners */
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+/* "Yes" Button - Romantic gradient of pinks */
+#yes {
+  background: linear-gradient(45deg, #ff3366, #ff6699);
+  color: #fff;
+}
+
+/* "No" Button - A softer contrasting romantic gradient */
+#no {
+  background: linear-gradient(45deg, #ff6699, #ff99cc);
+  color: #fff;
+}
+
+/* Button Hover Effects */
+button:hover {
+  transform: scale(1.1);
+}
+
+/* Message Styling when "No" is clicked */
+#message {
+  font-family: 'Lobster', cursive;
+  font-size: 2em;
+  color: #dc3545;
+  margin-top: 20px;
+  display: none;
+}
