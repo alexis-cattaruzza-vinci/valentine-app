@@ -4,25 +4,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery</title>
     <link rel="stylesheet" href="style-gallery.css">
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+          const items = document.querySelectorAll('.gallery-item');
+          items.forEach(item => {
+            item.addEventListener('click', () => {
+              const imgSrc = item.querySelector('img').src;
+              const captionText = item.querySelector('p').innerText;
+              // Build query string parameters, making sure to encode them
+              const queryString = '?img=' + encodeURIComponent(imgSrc) + '&caption=' + encodeURIComponent(captionText);
+              window.location.href = 'photo-detail.html' + queryString;
+            });
+          });
+        });
+    </script>
 </head>
 <body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="tulip.html">Home</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+    </nav>
     <div class="gallery-container">
-        <div class="gallery-item">
-            <img src="image1.jpg" alt="Beautiful Landscape">
-            <p>"Nature's masterpiece."</p>
-        </div>
-        <div class="gallery-item">
-            <img src="image2.jpg" alt="City Skyline">
-            <p>"Urban elegance at night."</p>
-        </div>
-        <div class="gallery-item">
-            <img src="image3.jpg" alt="Ocean Waves">
-            <p>"The rhythm of the sea."</p>
-        </div>
-        <div class="gallery-item">
-            <img src="image4.jpg" alt="Mountain Sunset">
-            <p>"Golden hour perfection."</p>
-        </div>
-    </div>
+        <div class="gallery-item"><img src="assets/ardennes-1.jpg" alt="Ardennes 1"><p>"Exploring the Ardennes beauty." Wait you are the Ardennes beauty </p></div>
+        <div class="gallery-item"><img src="assets/ardennes-2.jpg" alt="Ardennes 2"><p>"HUUUUUU."</p></div>
+        <div class="gallery-item"><img src="assets/ardennes-3.jpg" alt="Ardennes 3"><p>"Je suis amoureux là ouuuu."</p></div>
+        <div class="gallery-item"><img src="assets/ardennes-4.jpg" alt="Ardennes 4"><p>"Moooh on est trop mignon."</p></div>
+        
+        <div class="gallery-item"><img src="assets/georgia-1.jpg" alt="Georgia 1"><p>"Trop de charisme désolé c'est trop nous deux."</p></div>
+        <div class="gallery-item"><img src="assets/georgia-2.jpg" alt="Georgia 2"><p>"..."</p></div>
+        <div class="gallery-item"><img src="assets/georgia-3.jpg" alt="Georgia 3"><p>"Des vrais petits skieurs pro."</p></div>
+        <div class="gallery-item"><img src="assets/georgia-4.jpg" alt="Georgia 4"><p>"Une chose à dire: Badasse."</p></div>
+        <div class="gallery-item"><img src="assets/georgia-5.jpg" alt="Georgia 5"><p>"Baisse ta culotte c'est moi qui pilote."</p></div>
+        <div class="gallery-item"><img src="assets/georgia-6.jpg" alt="Georgia 6"><p>"C'est que j'ai l'air à l'aise là dis donc."</p></div>
+        <div class="gallery-item"><img src="assets/georgia-7.jpg" alt="Georgia 7"><p>"."</p></div>
+        
+        <div class="gallery-item"><img src="assets/ita-1.jpg" alt="Italy 1"><p>"Ohlala les touristes trop beaux."</p></div>
+        <div class="gallery-item"><img src="assets/ita-2.jpg" alt="Italy 2"><p>"Bah madame vous m'aggressez."</p></div>
+        <div class="gallery-item"><img src="assets/ita-3.jpg" alt="Italy 3"><p>"Grrrr que calor."</p></div>
+        
+        <div class="gallery-item"><img src="assets/maas-1.jpg" alt="Maas 1"><p>"OOOH les petites chèvres."</p></div>
+        <div class="gallery-item"><img src="assets/maas-2.jpg" alt="Maas 2"><p>"Outfit of the day gang."</p></div>
+        <div class="gallery-item"><img src="assets/maas-3.jpg" alt="Maas 3"><p>"Sympaaaaaa."</p></div>
+        
+        <div class="gallery-item"><img src="assets/memory-1.jpg" alt="Memory 1"><p>"Tiens tiens tiens qui voilà."</p></div>
+    </div>>
 </body>
 </html>

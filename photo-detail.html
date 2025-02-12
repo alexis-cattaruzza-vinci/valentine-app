@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Detail</title>
+  <link rel="stylesheet" href="style-detail.css">
+  <style>
+    /* Basic styling for the detail page */
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+    .navbar {
+      background-color: rgba(255, 182, 193, 0.8);
+      padding: 10px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      text-align: center;
+    }
+    .navbar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .navbar ul li {
+      display: inline;
+      margin: 0 15px;
+    }
+    .navbar ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .navbar ul li a:hover {
+      color: #ff69b4;
+    }
+    .detail-container {
+      margin-top: 80px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    .detail-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .detail-container p {
+      margin-top: 15px;
+      font-size: 1.2rem;
+      color: #333;
+    }
+    .back-btn {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      background: #ff3366;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    .back-btn:hover {
+      background: #ff6699;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="tulip.html">Home</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </nav>
+  
+  <div class="detail-container">
+    <img id="detail-img" src="" alt="Detail Image">
+    <p id="detail-caption"></p>
+    <a class="back-btn" href="gallery.html">Back to Gallery</a>
+  </div>
+
+  <script>
+    // Function to get query parameters from the URL
+    function getQueryParams() {
+      let params = {};
+      const queryString = window.location.search.substring(1);
+      const pairs = queryString.split('&');
+      for (let pair of pairs) {
+        if (pair) {
+          const parts = pair.split('=');
+          params[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
+        }
+      }
+      return params;
+    }
+
+    // Set the image and caption on the detail page based on URL parameters
+    const params = getQueryParams();
+    document.getElementById('detail-img').src = params.img || '';
+    document.getElementById('detail-caption').innerText = params.caption || '';
+  </script>
+</body>
+</html>
