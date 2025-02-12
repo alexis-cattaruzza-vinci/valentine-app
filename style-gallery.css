@@ -3,44 +3,47 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f1b4d2;
-}
-
-.gallery-container {
+  }
+  
+  .gallery-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     padding: 40px;
     max-width: 1200px;
     margin: auto;
-}
-
-.gallery-item {
+    position: relative; /* Ensures stacking context above background hearts */
+    z-index: 1;
+  }
+  
+  .gallery-item {
     overflow: hidden;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease-in-out;
     background: white;
     text-align: center;
-}
-
-.gallery-item img {
+    cursor: pointer;
+  }
+  
+  .gallery-item img {
     width: 100%;
     height: auto;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-}
-
-.gallery-item p {
+  }
+  
+  .gallery-item p {
     padding: 15px;
     font-size: 1rem;
     color: #333;
-}
-
-.gallery-item:hover {
+  }
+  
+  .gallery-item:hover {
     transform: scale(1.05);
-}
-
-.navbar {
+  }
+  
+  .navbar {
     background-color: rgba(255, 182, 193, 0.8); /* Light pink with transparency */
     padding: 10px;
     position: fixed;
@@ -49,73 +52,86 @@ body {
     width: 100%;
     z-index: 1000;
     text-align: center;
-}
-
-.navbar ul {
+  }
+  
+  .navbar ul {
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-.navbar ul li {
+  }
+  
+  .navbar ul li {
     display: inline;
     margin: 0 15px;
-}
-
-.navbar ul li a {
+  }
+  
+  .navbar ul li a {
     text-decoration: none;
     color: white;
     font-size: 18px;
     font-weight: bold;
     transition: color 0.3s;
-}
-
-.navbar ul li a:hover {
+  }
+  
+  .navbar ul li a:hover {
     color: #ff69b4; /* Hot pink */
-}
-
-.modal {
-    display: none;
+  }
+  
+  /* Hearts Background Container */
+.hearts {
     position: fixed;
-    z-index: 2000;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 0;
+    pointer-events: none; /* Allow clicks to pass through */
   }
-  .modal-content {
-    margin: 5% auto;
-    padding: 20px;
-    max-width: 800px;
-    background: #fff;
-    border-radius: 5px;
-    position: relative;
-    text-align: center;
-  }
-  .modal-content img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-  }
-  .modal-content p {
-    margin-top: 10px;
-    font-size: 1.1rem;
-    color: #333;
-  }
-  .close {
+  
+  /* Individual Heart Styling */
+  .heart {
     position: absolute;
-    top: 10px;
-    right: 20px;
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background-color: #ff69b4; /* Pretty pink color */
+    transform: rotate(45deg);
+    animation: float 10s linear infinite;
+    opacity: 0.8;
+    bottom: -40px;
+    animation-delay: calc(var(--i) * 0.3s);
+    /* The left position is set inline in the HTML */
   }
-  .close:hover,
-  .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+  
+  /* Create the heart shape with pseudo-elements */
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #ff69b4;
+    border-radius: 50%;
   }
+  
+  .heart::before {
+    top: -15px;
+    left: 0;
+  }
+  
+  .heart::after {
+    left: 15px;
+    top: 0;
+  }
+  
+  /* Animation for hearts with a custom horizontal offset */
+  @keyframes float {
+    0% {
+      transform: translate(0, 0) rotate(45deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translate(var(--offset), -120vh) rotate(45deg);
+      opacity: 0;
+    }
+  }
+  

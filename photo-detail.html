@@ -11,7 +11,7 @@
       margin: 0;
       padding: 20px;
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #f1b4d2;
     }
     .navbar {
       background-color: rgba(255, 182, 193, 0.8);
@@ -52,6 +52,8 @@
       border-radius: 8px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
       text-align: center;
+      position: relative;
+      z-index: 1;
     }
     .detail-container img {
       width: 100%;
@@ -62,6 +64,16 @@
       margin-top: 15px;
       font-size: 1.2rem;
       color: #333;
+    }
+    .detail-story {
+      margin-top: 20px;
+      padding: 15px;
+      font-size: 1rem;
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      color: #333;
+      text-align: left;
     }
     .back-btn {
       margin-top: 20px;
@@ -76,9 +88,82 @@
     .back-btn:hover {
       background: #ff6699;
     }
+    
+    /* Hearts Background Container */
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    .heart {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: #ff69b4;
+      transform: rotate(45deg);
+      animation: float 10s linear infinite;
+      opacity: 0.8;
+      bottom: -40px;
+      animation-delay: calc(var(--i) * 0.3s);
+    }
+    
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: #ff69b4;
+      border-radius: 50%;
+    }
+    
+    .heart::before {
+      top: -15px;
+      left: 0;
+    }
+    
+    .heart::after {
+      left: 15px;
+      top: 0;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(var(--offset), -120vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Hearts Background Container -->
+  <div class="hearts">
+    <div class="heart" style="--i:0; left: 10%; --offset: 20px;"></div>
+    <div class="heart" style="--i:1; left: 30%; --offset: -30px;"></div>
+    <div class="heart" style="--i:2; left: 50%; --offset: 40px;"></div>
+    <div class="heart" style="--i:3; left: 70%; --offset: -20px;"></div>
+    <div class="heart" style="--i:4; left: 90%; --offset: 30px;"></div>
+    <div class="heart" style="--i:5; left: 20%; --offset: -40px;"></div>
+    <div class="heart" style="--i:6; left: 40%; --offset: 10px;"></div>
+    <div class="heart" style="--i:7; left: 60%; --offset: -10px;"></div>
+    <div class="heart" style="--i:8; left: 80%; --offset: 50px;"></div>
+    <div class="heart" style="--i:9; left: 15%; --offset: -50px;"></div>
+    <div class="heart" style="--i:10; left: 35%; --offset: 60px;"></div>
+    <div class="heart" style="--i:11; left: 55%; --offset: -60px;"></div>
+    <div class="heart" style="--i:12; left: 75%; --offset: 25px;"></div>
+    <div class="heart" style="--i:13; left: 85%; --offset: -25px;"></div>
+    <div class="heart" style="--i:14; left: 5%; --offset: 15px;"></div>
+  </div>
+  
   <!-- Navigation Bar -->
   <nav class="navbar">
     <ul>
@@ -87,9 +172,14 @@
     </ul>
   </nav>
   
+  <!-- Detail Container -->
   <div class="detail-container">
     <img id="detail-img" src="" alt="Detail Image">
     <p id="detail-caption"></p>
+    
+    <!-- Hard-Coded Story Section -->
+    <div class="detail-story" id="detail-story"></div>
+    
     <a class="back-btn" href="gallery.html">Back to Gallery</a>
   </div>
 
@@ -112,6 +202,31 @@
     const params = getQueryParams();
     document.getElementById('detail-img').src = params.img || '';
     document.getElementById('detail-caption').innerText = params.caption || '';
+
+    // Hard-coded stories mapping (keys should match the image paths)
+    const stories = {
+      "assets/ardennes-1.jpg": "This photo captures the serene beauty of the Ardennes, where nature sings its own melody.",
+      "assets/ardennes-2.jpg": "A moment of pure joy in the heart of the Ardennes, showcasing nature's splendor.",
+      "assets/ardennes-3.jpg": "The picturesque landscape of the Ardennes, filled with vibrant colors and tranquility.",
+      "assets/ardennes-4.jpg": "An enchanting view from the Ardennes that takes you back to simpler times.",
+      "assets/georgia-1.jpg": "Georgia shines through in this snapshot, full of charm and sophistication.",
+      "assets/georgia-2.jpg": "A glimpse of Georgia's vibrant spirit, captured in a fleeting moment.",
+      "assets/georgia-3.jpg": "This image reflects the energy and passion of Georgia's breathtaking scenery.",
+      "assets/georgia-4.jpg": "The essence of Georgia is distilled in this striking capture.",
+      "assets/georgia-5.jpg": "An unforgettable memory from Georgia that radiates both fun and style.",
+      "assets/georgia-6.jpg": "This photo highlights the relaxed vibe and natural elegance of Georgia.",
+      "assets/georgia-7.jpg": "A simple yet captivating view from Georgia.",
+      "assets/ita-1.jpg": "Italy's timeless beauty and rich history are on full display in this romantic scene.",
+      "assets/ita-2.jpg": "A charming glimpse of Italy's vibrant culture and artistic spirit.",
+      "assets/ita-3.jpg": "Italy offers a perfect blend of passion, art, and beauty in this image.",
+      "assets/maas-1.jpg": "The Maas river flows gracefully in this shot, mirroring the light of a perfect day.",
+      "assets/maas-2.jpg": "A serene snapshot of the Maas, where water and nature blend in harmony.",
+      "assets/maas-3.jpg": "This image captures the delicate dance of light and color along the Maas.",
+      "assets/memory-1.jpg": "A cherished memory frozen in time—a perfect snapshot of our journey together."
+    };
+
+    // Set the hard-coded story based on the image source
+    document.getElementById('detail-story').innerText = stories[params.img] || "No story available for this image.";
   </script>
 </body>
 </html>
