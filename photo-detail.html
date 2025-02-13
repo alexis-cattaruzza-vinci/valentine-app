@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Photo Detail</title>
-  <link rel="stylesheet" href="style-detail.css">
+  <link rel="stylesheet" href="style-detail.css" />
   <style>
     /* Basic styling for the detail page */
     body {
@@ -174,10 +174,10 @@
   
   <!-- Detail Container -->
   <div class="detail-container">
-    <img id="detail-img" src="" alt="Detail Image">
+    <img id="detail-img" src="" alt="Detail Image" />
     <p id="detail-caption"></p>
     
-    <!-- Hard-Coded Story Section -->
+    <!-- Story Section -->
     <div class="detail-story" id="detail-story"></div>
     
     <a class="back-btn" href="gallery.html">Back to Gallery</a>
@@ -188,45 +188,26 @@
     function getQueryParams() {
       let params = {};
       const queryString = window.location.search.substring(1);
-      const pairs = queryString.split('&');
+      const pairs = queryString.split("&");
       for (let pair of pairs) {
         if (pair) {
-          const parts = pair.split('=');
-          params[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
+          const parts = pair.split("=");
+          params[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || "");
         }
       }
       return params;
     }
 
-    // Set the image and caption on the detail page based on URL parameters
+    // Retrieve URL parameters
     const params = getQueryParams();
-    document.getElementById('detail-img').src = params.img || '';
-    document.getElementById('detail-caption').innerText = params.caption || '';
 
-    // Hard-coded stories mapping (keys should match the image paths)
-    const stories = {
-      "assets/ardennes-1.jpg": "This photo captures the serene beauty of the Ardennes, where nature sings its own melody.",
-      "assets/ardennes-2.jpg": "A moment of pure joy in the heart of the Ardennes, showcasing nature's splendor.",
-      "assets/ardennes-3.jpg": "The picturesque landscape of the Ardennes, filled with vibrant colors and tranquility.",
-      "assets/ardennes-4.jpg": "An enchanting view from the Ardennes that takes you back to simpler times.",
-      "assets/georgia-1.jpg": "Georgia shines through in this snapshot, full of charm and sophistication.",
-      "assets/georgia-2.jpg": "A glimpse of Georgia's vibrant spirit, captured in a fleeting moment.",
-      "assets/georgia-3.jpg": "This image reflects the energy and passion of Georgia's breathtaking scenery.",
-      "assets/georgia-4.jpg": "The essence of Georgia is distilled in this striking capture.",
-      "assets/georgia-5.jpg": "An unforgettable memory from Georgia that radiates both fun and style.",
-      "assets/georgia-6.jpg": "This photo highlights the relaxed vibe and natural elegance of Georgia.",
-      "assets/georgia-7.jpg": "A simple yet captivating view from Georgia.",
-      "assets/ita-1.jpg": "Italy's timeless beauty and rich history are on full display in this romantic scene.",
-      "assets/ita-2.jpg": "A charming glimpse of Italy's vibrant culture and artistic spirit.",
-      "assets/ita-3.jpg": "Italy offers a perfect blend of passion, art, and beauty in this image.",
-      "assets/maas-1.jpg": "The Maas river flows gracefully in this shot, mirroring the light of a perfect day.",
-      "assets/maas-2.jpg": "A serene snapshot of the Maas, where water and nature blend in harmony.",
-      "assets/maas-3.jpg": "This image captures the delicate dance of light and color along the Maas.",
-      "assets/memory-1.jpg": "A cherished memory frozen in time—a perfect snapshot of our journey together."
-    };
+    // Set the image and caption on the detail page
+    document.getElementById("detail-img").src = params.img || "";
+    document.getElementById("detail-caption").innerText = params.caption || "";
 
-    // Set the hard-coded story based on the image source
-    document.getElementById('detail-story').innerText = stories[params.img] || "No story available for this image.";
+    // Display the story passed from the clicked image
+    const storyText = params.story || "No story available for this image.";
+    document.getElementById("detail-story").innerText = storyText;
   </script>
 </body>
 </html>

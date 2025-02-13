@@ -134,4 +134,8 @@ body {
       opacity: 0;
     }
   }
+
+  .story {
+    display: none;
+  }
   

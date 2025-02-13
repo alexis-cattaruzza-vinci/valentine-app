@@ -1,73 +1,142 @@
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
-    <link rel="stylesheet" href="style-gallery.css">
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-          const items = document.querySelectorAll('.gallery-item');
-          items.forEach(item => {
-            item.addEventListener('click', () => {
-              const imgSrc = item.querySelector('img').src;
-              const captionText = item.querySelector('p').innerText;
-              // Build query string parameters, making sure to encode them
-              const queryString = '?img=' + encodeURIComponent(imgSrc) + '&caption=' + encodeURIComponent(captionText);
-              window.location.href = 'photo-detail.html' + queryString;
-            });
-          });
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery</title>
+  <link rel="stylesheet" href="style-gallery.css">
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const items = document.querySelectorAll('.gallery-item');
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          const imgSrc = item.querySelector('img').src;
+          // Select caption text from element with class "caption"
+          const captionText = item.querySelector('.caption').innerText;
+          // Select story text from element with class "story"
+          const storyText = item.querySelector('.story').innerText;
+          // Build query string parameters, making sure to encode them
+          const queryString = '?img=' + encodeURIComponent(imgSrc) +
+                              '&caption=' + encodeURIComponent(captionText) +
+                              '&story=' + encodeURIComponent(storyText);
+          window.location.href = 'photo-detail.html' + queryString;
         });
-    </script>
+      });
+    });
+  </script>
 </head>
 <body>
-    <!-- Hearts Background Container (as defined in your shared style.css) -->
-    <div class="hearts">
-      <div class="heart" style="--i:0; left: 10%; --offset: 20px;"></div>
-      <div class="heart" style="--i:1; left: 30%; --offset: -30px;"></div>
-      <div class="heart" style="--i:2; left: 50%; --offset: 40px;"></div>
-      <div class="heart" style="--i:3; left: 70%; --offset: -20px;"></div>
-      <div class="heart" style="--i:4; left: 90%; --offset: 30px;"></div>
-      <div class="heart" style="--i:5; left: 20%; --offset: -40px;"></div>
-      <div class="heart" style="--i:6; left: 40%; --offset: 10px;"></div>
-      <div class="heart" style="--i:7; left: 60%; --offset: -10px;"></div>
-      <div class="heart" style="--i:8; left: 80%; --offset: 50px;"></div>
-      <div class="heart" style="--i:9; left: 15%; --offset: -50px;"></div>
-      <div class="heart" style="--i:10; left: 35%; --offset: 60px;"></div>
-      <div class="heart" style="--i:11; left: 55%; --offset: -60px;"></div>
-      <div class="heart" style="--i:12; left: 75%; --offset: 25px;"></div>
-      <div class="heart" style="--i:13; left: 85%; --offset: -25px;"></div>
-      <div class="heart" style="--i:14; left: 5%; --offset: 15px;"></div>
+  <!-- Hearts Background Container (as defined in your shared style.css) -->
+  <div class="hearts">
+    <div class="heart" style="--i:0; left: 10%; --offset: 20px;"></div>
+    <div class="heart" style="--i:1; left: 30%; --offset: -30px;"></div>
+    <div class="heart" style="--i:2; left: 50%; --offset: 40px;"></div>
+    <div class="heart" style="--i:3; left: 70%; --offset: -20px;"></div>
+    <div class="heart" style="--i:4; left: 90%; --offset: 30px;"></div>
+    <div class="heart" style="--i:5; left: 20%; --offset: -40px;"></div>
+    <div class="heart" style="--i:6; left: 40%; --offset: 10px;"></div>
+    <div class="heart" style="--i:7; left: 60%; --offset: -10px;"></div>
+    <div class="heart" style="--i:8; left: 80%; --offset: 50px;"></div>
+    <div class="heart" style="--i:9; left: 15%; --offset: -50px;"></div>
+    <div class="heart" style="--i:10; left: 35%; --offset: 60px;"></div>
+    <div class="heart" style="--i:11; left: 55%; --offset: -60px;"></div>
+    <div class="heart" style="--i:12; left: 75%; --offset: 25px;"></div>
+    <div class="heart" style="--i:13; left: 85%; --offset: -25px;"></div>
+    <div class="heart" style="--i:14; left: 5%; --offset: 15px;"></div>
+  </div>
+  
+  <nav class="navbar">
+    <ul>
+      <li><a href="tulip.html">Home</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </nav>
+  
+  <div class="gallery-container">
+    <!-- Each gallery item now has a caption and an optional story field -->
+    <div class="gallery-item">
+      <img src="assets/ardennes-1.jpg" alt="Ardennes 1">
+      <p class="caption">"Exploring the Ardennes beauty." Wait you are the Ardennes beauty</p>
+      <p class="story">Waw quand on y repense comment c'était trop bien les ardennes avec les deux autres zigoto. Et puis que dire de cette photo elle respire l'amour à plein nez donc elle se devait de se trouver dans ce petit récap du love. Et surtout en entré.</p>
     </div>
-    <nav class="navbar">
-        <ul>
-            <li><a href="tulip.html">Home</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-        </ul>
-    </nav>
+    <div class="gallery-item">
+      <img src="assets/ardennes-2.jpg" alt="Ardennes 2">
+      <p class="caption">"HUUUUUU."</p>
+      <p class="story">Alors jsp d'où elle sort celle-là mais je le trouvais drôle. Je pense que c'était au petit resto italien qu'on a fait le dernier jour quand on est parti des Ardennes où j'étais en pls lolzz ça doit te ramener de bon souvenirs. FAUX.</p>
+    </div>
+    <div class="gallery-item">
+      <img src="assets/ardennes-4.jpg" alt="Ardennes 4">
+      <p class="caption">"Moooh on est trop mignon."</p>
+      <p class="story">Hihi ça cc'était un gros d'amour comme j'aime dis donc. Je sais que la période actuelle est compliqué et que tu me manques et que je te manques et je rêverai d'avoir un gros bisous comme ça maintenant et je sais que tu vas m'en faire plein dans à peine dans un peu moins de 3 mois donc ça me fait du bien de regarder ses photos et de me dire que tu reviens bientôt.</p>
+    </div>
     
-    <div class="gallery-container">
-        <div class="gallery-item"><img src="assets/ardennes-1.jpg" alt="Ardennes 1"><p>"Exploring the Ardennes beauty." Wait you are the Ardennes beauty </p></div>
-        <div class="gallery-item"><img src="assets/ardennes-2.jpg" alt="Ardennes 2"><p>"HUUUUUU."</p></div>
-        <div class="gallery-item"><img src="assets/ardennes-3.jpg" alt="Ardennes 3"><p>"Je suis amoureux là ouuuu."</p></div>
-        <div class="gallery-item"><img src="assets/ardennes-4.jpg" alt="Ardennes 4"><p>"Moooh on est trop mignon."</p></div>
-        
-        <div class="gallery-item"><img src="assets/georgia-1.jpg" alt="Georgia 1"><p>"Trop de charisme désolé c'est trop nous deux."</p></div>
-        <div class="gallery-item"><img src="assets/georgia-2.jpg" alt="Georgia 2"><p>"..."</p></div>
-        <div class="gallery-item"><img src="assets/georgia-3.jpg" alt="Georgia 3"><p>"Des vrais petits skieurs pro."</p></div>
-        <div class="gallery-item"><img src="assets/georgia-4.jpg" alt="Georgia 4"><p>"Une chose à dire: Badasse."</p></div>
-        <div class="gallery-item"><img src="assets/georgia-5.jpg" alt="Georgia 5"><p>"Baisse ta culotte c'est moi qui pilote."</p></div>
-        <div class="gallery-item"><img src="assets/georgia-6.jpg" alt="Georgia 6"><p>"C'est que j'ai l'air à l'aise là dis donc."</p></div>
-        <div class="gallery-item"><img src="assets/georgia-7.jpg" alt="Georgia 7"><p>"."</p></div>
-        
-        <div class="gallery-item"><img src="assets/ita-1.jpg" alt="Italy 1"><p>"Ohlala les touristes trop beaux."</p></div>
-        <div class="gallery-item"><img src="assets/ita-2.jpg" alt="Italy 2"><p>"Bah madame vous m'aggressez."</p></div>
-        <div class="gallery-item"><img src="assets/ita-3.jpg" alt="Italy 3"><p>"Grrrr que calor."</p></div>
-        
-        <div class="gallery-item"><img src="assets/maas-1.jpg" alt="Maas 1"><p>"OOOH les petites chèvres."</p></div>
-        <div class="gallery-item"><img src="assets/maas-2.jpg" alt="Maas 2"><p>"Outfit of the day gang."</p></div>
-        <div class="gallery-item"><img src="assets/maas-3.jpg" alt="Maas 3"><p>"Sympaaaaaa."</p></div>
-        
-        <div class="gallery-item"><img src="assets/memory-1.jpg" alt="Memory 1"><p>"Tiens tiens tiens qui voilà."</p></div>
-    </div>>
+    <div class="gallery-item">
+      <img src="assets/georgia-1.jpg" alt="Georgia 1">
+      <p class="caption">"Trop de charisme désolé c'est trop nous deux."</p>
+      <p class="story">Alors là on rentre dans l'arc "GEORGIA" et comment mieux commencé qu'avec cette photo. Juste WAW. Comment on est trop badasse en tenue de ski là. Surtout évidemmetn en full white mon Dieu ça te va trop bien. On forme un couple de fou malade je suis trop fier et trop content d'être avec toi ma Bibou.</p>
+    </div>
+    <div class="gallery-item">
+      <img src="assets/georgia-2.jpg" alt="Georgia 2">
+      <p class="caption">"..."</p>
+      <p class="story">Rien d'autres à dire sur celle-là à part que il y en a un de nous deux qui a pas l'air super à l'aise mais je dirais pas qui hahaha. (MOI!)</p>
+    </div>
+    <div class="gallery-item">
+      <img src="assets/georgia-3.jpg" alt="Georgia 3">
+      <p class="caption">"Des vrais petits skieurs pro."</p>
+      <p class="story">HAHAHAH. Je pense que le ski s'est pas fait pour nous vu comment on est à l'aise sur cette photo mais ça reste quand même une très chouette expérience qu'on a vécu là-bas et franchement je suis pas contre retenter une fois quand on pourra se faire des petites vacances d'hiver(c'est une invitation au voyage tu vas pas refuser quand même). Faudra tester les pistes qu'on voit sur Instagram parce que j'ai l'impression qu'on s'est fait bullshit sur les pistes vertes hahah. </p>
+    </div>
+    <div class="gallery-item">
+      <img src="assets/georgia-4.jpg" alt="Georgia 4">
+      <p class="caption">"Une chose à dire: Badasse."</p>
+      <p class="story">N'empèche c'était super cool ces premières vacances en Géorgie avec toi mon amour. J'ai découvert ton petit endroit de paradis, les personnes de ta famille qui te tiennent le plus à coeur et même si c'était stressant au début et bas je m'y suis habitué et je trouve que c'était un pas dans notre relation de connaitre cette partie de toi que peu de gens connaissent au final. J'ai adoré ce pays et j'ai hâte d'y être cette été ensemble sans prise de tête l'esprit libre comme l'air.</p>
+    </div>
+    <div class="gallery-item">
+      <img src="assets/georgia-5.jpg" alt="Georgia 5">
+      <p class="caption">"Baisse ta culotte c'est moi qui pilote."</p>
+      <p class="story">Ohlala je me suis jamais autant chié dessus que quand j'étais derrière Micho haha. Je rebondissait comme Tigrou derrière là ça m'avait explosé le cul mais qu'est ce que c'était beau et une chouette expérience en vrai. Je me souviens t'avais eu peur sur la monté parce que t'étais avec un grand malade qui prennait genre des raccourcis de maboule. </p>
+    </div>
+    <div class="gallery-item">
+      <img src="assets/georgia-7.jpg" alt="Georgia 7">
+      <p class="caption">"Mooh qui sont beau ces deux là!"</p>
+      <p class="story">Dernière petite virée en Géorgie avec ce petit récap image de nous deux. T'es super magnifique et jolie sur photo et t'es super mimi mon p'tit chat d'amour que j'aime. Plus sincèrement, on a eu des phases et nous voici encore dans une phase difficile de notre relation mais je voulais que tu saches que je suis fier d'être avec toi depuis le day 1 et que dés que je t'ai rencontré j'ai toute de suite su qu'on avait quelques choses ensemble. Ca avait jamais été si facile de discuter, de parler de faire des trucs avec quelqu'un qu'avec toi et au fond de moi je savais qu'il fallait pas presser les choses et qu'on allait finir ensemble par un moyen où un autre.</p>
+    </div>
+    
+    <div class="gallery-item">
+      <img src="assets/ita-1.jpg" alt="Italy 1">
+      <p class="caption">"Ohlala les touristes trop beaux."</p>
+      <p class="story">Et oui évidemment on pouvait pas passer à côté de l'Italie. Ca restera un souvenir gravé à jamais dans ma mémoire notre premier voyage en amoureux. J'ai jamais eu autant rien à foutre du reste du monde que cette fois là. On était sur notre petit nuage en amoureux et c'était juste un feeling incroyable que je veux revivre à chaque instant avec toi parce que t'es la seule personne qui me fait du bien qui me permet de déconnecter pour de bon. Je t'aime!</p>
+    </div>
+    <div class="gallery-item">
+      <img src="assets/ita-2.jpg" alt="Italy 2">
+      <p class="caption">"Bah madame vous m'aggressez."</p>
+      <p class="story">A mes yeux c'est la meilleure photo qu'on a deux parce que c'est celle qui est chargé de plus d'histoires, des petits dates au resto le soir en Italie avec la petite gelatto commandé par mes soins(oui je suis fier) en terminant la journée au bord du lac avec mon amoureuse que rêver de plus me diras t'on. Pas grand chose hihi voir rien du tout il y a tout ce que j'ai besoin sur cette photo. Une bibouuu sauvage.</p>
+    </div>
+    <div class="gallery-item">
+      <img src="assets/ita-3.jpg" alt="Italy 3">
+      <p class="caption">"Grrrr que calor."</p>
+      <p class="story">Pour terminer en beauté cette partie sur l'Italie, je veux juste te dire que t'es la meilleure chose qui me soit arrivé dans ma vie jusqu'a maintenant je te l'ai déjà dis mais j'aime bien le répété parce que c'est important d'être reconnaissant quand même. j'ai tellement grandi, j'ai osé faire plus de choses, tu m'as motivé tu m'as fixé des objectifs je peux que te remercié pour tout ça ma Bibou.</p>
+    </div>
+    <div class="gallery-item">
+      <img src="assets/maas-3.jpg" alt="Maas 3">
+      <p class="caption">"Sympaaaaaa."</p>
+      <p class="story">Ahhh bien évidemment je pouvais pas ne pas mettre notre ancien petit havre de paix; Notre petite bicoque à nous quand venais le weekend et que je débarquais passer le weekend à Maas. C'est des sacrés souvenirs tout ça. Un peu de nostalgie par ici mais j'ai qu'une hâte c'est qu'on recrée ça à deux. Peux importe l'endroit je te suivrais dans tous tes projets et je ferais tout mon possible pour être avec toi. Je t'AIMEEEEEEEEE à la folie.</p>
+    </div>
+    <div class="gallery-item">
+      <img src="assets/maas-2.jpg" alt="Maas 2">
+      <p class="caption">"Outfit of the day gang."</p>
+      <p class="story">Un vrai banger ce petit miroire qui a débarqué pendant 33 mois et qui n'a plus bougé. Tu me faisais tes petits outfits of the day et il y en a même eu avec moi qui l'eu cru. Voilà on arrive sur la fin même si il reste quelques souvenirs à débloquer dans ton petit cadeau mais je répeterai jamais assez au combien je t'aime et au combien je suis heureux de t'avoir dans ma vie. Je t'aime de tout mon coeur(parce que c'est quand même un cadeau de Saint Valentin).</p>
+    </div>
+    <div class="gallery-item">
+      <img src="assets/maas-1.jpg" alt="Maas 1">
+      <p class="caption">"OOOH les petites chèvres."</p>
+      <p class="story">Hahaha la gueule des petites chèvres qui attendait que de la graille et toi qui avait peur de te faire manger les doights par les petites chèvres trop mignones. C'était vraiment un chouette truc ce petit Zoo gratuit haha c'est complétement incensé mais c'est un bon souvenir avec toi ma Bibouuu on a bine rigolé et quand on rigole j'adore ça tout simplement.</p>
+    </div>
+    <div class="gallery-item">
+      <img src="assets/memory-1.jpg" alt="Memory 1">
+      <p class="caption">"Tiens tiens tiens qui voilà."</p>
+      <p class="story">Oh mon Dieu me demande pas comment mais je suis retombé sur cette photo. Je vais te laisser réfléchir un peu et deviner la story derrière cette photo hehe. Non je rigole. C'est la soirée bien génante mais trop kiffante où on était à 3 chez moi avec Val et on était pas encore ensemble mais on s'était déjà dis qu'on s'aimait bien et tout ça donc ça m'a choqué quand j'ai retrouvé ça parce que c'est la meilleure. Je finis par le commencement comme c'est une belle fin de cadeau de Saint Valentin. je suis pas le meilleur pour les cadeaux mais j'espère que celui-là te fera plaisir j'y ai mis du mien. Bisousss je t'aime mon amour.</p>
+    </div>
+    
+    
+  </div>
 </body>
 </html>
